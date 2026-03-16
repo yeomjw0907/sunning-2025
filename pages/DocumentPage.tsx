@@ -66,7 +66,22 @@ export default function DocumentPage() {
                   </div>
                   <p className="text-slate-500 text-sm mb-6">* 대량 작업은 별도 협의입니다.</p>
                 </>
-              ) : section.images && section.images.length > 0 && (
+              ) : section.feeItems && section.feeItems.length > 0 ? (
+                <>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
+                    {section.feeItems.map((item, i) => (
+                      <div
+                        key={i}
+                        className="group flex flex-col rounded-2xl border border-slate-200/80 bg-gradient-to-b from-slate-50 to-white p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-suning-blue/30 transition-all duration-200"
+                      >
+                        <p className="font-bold text-slate-900 word-keep-all text-base sm:text-lg mb-2">{item.label}</p>
+                        <p className="mt-auto text-suning-blue font-bold text-lg sm:text-xl">{item.price}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-slate-500 text-sm">* 대량 작업은 별도 협의입니다.</p>
+                </>
+              ) : section.images && section.images.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
                   {section.images.map((src, i) => (
                     <div key={i} className="rounded-xl overflow-hidden ring-1 ring-slate-200/50 aspect-[4/3] sm:aspect-square">
@@ -74,7 +89,7 @@ export default function DocumentPage() {
                     </div>
                   ))}
                 </div>
-              )}
+              ) : null}
               {section.steps && section.steps.length > 0 ? (
                 <div className="space-y-0">
                   {section.steps.map((step, stepIndex) => (
@@ -83,11 +98,6 @@ export default function DocumentPage() {
                         {stepIndex + 1}
                       </div>
                       <div className="flex-1 min-w-0">
-                        {step.image && (
-                          <div className="rounded-xl overflow-hidden ring-1 ring-slate-200/50 mb-4 w-full max-w-[280px]">
-                            <img src={step.image} alt={step.label} className="w-full h-44 object-cover" />
-                          </div>
-                        )}
                         <h3 className="font-bold text-slate-800 mb-2 word-keep-all text-lg">{step.label}</h3>
                         <p className="text-slate-600 leading-relaxed word-keep-all whitespace-pre-line text-[15px] sm:text-base">
                           {step.body}

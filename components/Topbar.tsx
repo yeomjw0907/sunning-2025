@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { TOP_NAV_LINKS } from '../constants';
 import { DOCUMENT_PAGES } from '../data/documentContent';
 
 const Topbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { pathname } = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const currentDoc = slug && DOCUMENT_PAGES[slug] ? DOCUMENT_PAGES[slug] : null;
 
@@ -18,7 +19,7 @@ const Topbar: React.FC = () => {
         {/* Desktop: 전부 상단 직접 링크 (드롭다운 없음). 메인은 슈닝 클릭으로. */}
         <nav className="hidden md:flex items-center gap-5">
           {TOP_NAV_LINKS.map((item) => {
-            const isActive = slug === item.id;
+            const isActive = pathname === item.href;
             return (
               <Link
                 key={item.id}
@@ -60,16 +61,19 @@ const Topbar: React.FC = () => {
       {/* Mobile 메뉴 패널: 슈닝 클릭이 메인이므로 메인 링크 없음 */}
       {menuOpen && (
         <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4">
-          {TOP_NAV_LINKS.map((item) => (
-            <Link
-              key={item.id}
-              to={item.href}
-              className="block py-3 text-slate-700 font-medium hover:text-suning-blue"
-              onClick={() => setMenuOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {TOP_NAV_LINKS.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.id}
+                to={item.href}
+                className={`block py-3 font-medium transition-colors ${isActive ? 'text-suning-blue' : 'text-slate-700 hover:text-suning-blue'}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
       )}
     </header>
