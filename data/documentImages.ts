@@ -2,7 +2,7 @@
  * true로 바꾸면 public/images/documents/ 에 넣은 이미지를 사용합니다.
  * 파일 이름·위치·크기는 public/images/documents/README.md 참고.
  */
-const USE_LOCAL_IMAGES = false;
+const USE_LOCAL_IMAGES = true;
 
 const LOCAL_BASE = '/images/documents/';
 const EXT = '.jpg';
