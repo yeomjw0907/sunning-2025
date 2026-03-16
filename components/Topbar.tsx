@@ -12,8 +12,8 @@ const Topbar: React.FC = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-30 bg-white/95 backdrop-blur border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-        <Link to="/" className="text-xl font-bold text-slate-900 hover:text-suning-blue transition-colors" aria-label="슈닝 메인으로">
-          슈닝
+        <Link to="/" className="flex items-center shrink-0 opacity-95 hover:opacity-100 transition-opacity" aria-label="슈닝 메인으로">
+          <img src="/logo.png" alt="슈닝" className="h-8 sm:h-9 w-auto object-contain" />
         </Link>
 
         {/* Desktop: 전부 상단 직접 링크 (드롭다운 없음). 메인은 슈닝 클릭으로. */}

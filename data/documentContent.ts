@@ -88,24 +88,20 @@ export const DOCUMENT_PAGES: Record<string, DocumentPage> = {
       {
         heading: 'OEM·ODM 서비스',
         body: '슈닝은 제품 각인, 로고 인쇄, OPP 및 PE 포장지 등 모든 공정을 자체 공장에서 직접 OEM/ODM으로 진행하며, 전 세계 기업들과 수년간의 거래 경험을 보유하고 있습니다. 금형 제작 및 플라스틱 사출 성형을 포함한 모든 제작 과정을 한 곳에서 처리할 수 있어, 여러 업체를 거칠 필요 없이 슈닝에서 모든 절차를 원스톱으로 진행하실 수 있습니다. 소량 시제부터 대량 생산까지 단계별 견적과 샘플 검수를 제공하며, 디자인·규격 변경이 필요할 때도 현지에서 바로 소통·반영이 가능합니다.',
-        images: [DOC_IMAGES.oemFactory, DOC_IMAGES.oemPackaging],
       },
       {
         heading: 'OEM (Original Equipment Manufacturing)',
         body: 'OEM은 특정 브랜드의 제품을 설계하고 제조한 후, 해당 브랜드의 상표를 부착하여 생산하는 방식을 말합니다. 고객사가 제공한 스펙·디자인에 맞춰 공장에서 제조하고, 로고·라벨·포장까지 브랜드에 맞게 적용해 드립니다. 품질 기준과 검수 절차를 사전에 합의하여 일관된 품질의 제품을 공급받으실 수 있습니다.',
-        image: DOC_IMAGES.oemFactory,
       },
       {
         heading: 'ODM (Original Design Manufacturing)',
         body: 'ODM은 특정 업체에 제품 설계와 제조를 맡기고, 고객의 요구에 맞춰 완성된 제품을 제공하는 방식입니다. 아이디어나 컨셉만 있으셔도 슈닝이 현지에서 설계·시제·양산까지 연결해 드리며, 카테고리별 추천 공정과 소재 정보도 함께 안내해 드립니다. 신제품 기획 단계부터 협의가 가능합니다.',
-        image: DOC_IMAGES.oemPackaging,
       },
     ],
   },
   'denote-fee': {
     title: '원산지 표기 요금',
     lead: '원산지 표기 관련 요금 및 서비스 안내입니다. 원산지 작업·도장·바코드·미싱·OPP 포장·로고 인쇄 등 유형별 단가가 적용되며, 대량 작업은 별도 협의입니다.',
-    heroImage: DOC_IMAGES.denote1,
     sections: [
       {
         heading: '원산지 표기 요금',
