@@ -1,5 +1,11 @@
 import React from 'react';
 
+const trackCtaClick = (ctaType: 'kakao' | 'quote' | 'phone' | 'start') => {
+  if (typeof window !== 'undefined' && typeof (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag === 'function') {
+    (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'click_cta', { cta_type: ctaType });
+  }
+};
+
 const Footer: React.FC = () => {
   return (
     <footer className="bg-suning-navy pt-40 pb-12 px-6 relative">
@@ -17,14 +23,42 @@ const Footer: React.FC = () => {
              <p className="text-lg text-gray-500 mb-10 max-w-lg mx-auto word-keep-all leading-relaxed">
                  복잡한 중국 구매대행, 배송대행, 재고관리까지.<br/>슈닝의 전문적인 원스톱 서비스로 해결해 드립니다.
              </p>
-             <a 
-               href="https://suning.kr/" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               className="inline-block bg-suning-orange text-white text-lg font-bold py-4 px-12 rounded-full hover:bg-orange-600 transition-colors shadow-lg hover:shadow-orange-500/30"
-             >
+             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
+               <a 
+                 href="https://suning.kr/" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 onClick={() => trackCtaClick('start')}
+                 className="inline-block bg-suning-orange text-white text-lg font-bold py-4 px-12 rounded-full hover:bg-orange-600 transition-colors shadow-lg hover:shadow-orange-500/30"
+               >
                  지금 바로 시작하기 &rarr;
-             </a>
+               </a>
+               <a 
+                 href="https://suning.kr/" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 onClick={() => trackCtaClick('kakao')}
+                 className="inline-flex items-center justify-center gap-2 border-2 border-slate-200 text-slate-800 text-base font-bold py-3 px-8 rounded-full hover:border-suning-blue hover:text-suning-blue transition-colors"
+               >
+                 카카오톡 상담
+               </a>
+               <a 
+                 href="https://suning.kr/" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 onClick={() => trackCtaClick('quote')}
+                 className="inline-flex items-center justify-center gap-2 border-2 border-slate-200 text-slate-800 text-base font-bold py-3 px-8 rounded-full hover:border-suning-blue hover:text-suning-blue transition-colors"
+               >
+                 견적 문의
+               </a>
+               <a 
+                 href="tel:070-7078-9880" 
+                 onClick={() => trackCtaClick('phone')}
+                 className="inline-flex items-center justify-center gap-2 border-2 border-slate-200 text-slate-800 text-base font-bold py-3 px-8 rounded-full hover:border-suning-blue hover:text-suning-blue transition-colors"
+               >
+                 전화하기
+               </a>
+             </div>
         </div>
 
         {/* Footer Info Section - Based on Reference */}

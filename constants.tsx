@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatItem, Project, TeamMember } from './types';
+import { StatItem, Project, TeamMember, Service, Testimonial } from './types';
 
 // Icons as simple SVGs for the constants
 export const Icons = {
@@ -115,4 +115,28 @@ export const TEAM: TeamMember[] = [
   { id: 't2', name: '이서연', role: '물류 본부장', image: 'https://images.unsplash.com/photo-1573496359-7013c53bca63?auto=format&fit=crop&q=80&w=200' },
   { id: 't3', name: '데이비드 첸', role: '기술 총괄', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200' },
   { id: 't4', name: '엘레나', role: '글로벌 영업', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200' },
+];
+
+// 서비스(랜딩 카드·탑바): 전용 번역기·재고관리 신청방법 제외. 원산지 표기는 요금 안내로 분리.
+export const SERVICES: Service[] = [
+  { id: 'trade', title: '무역업무 서비스', description: '시장조사, 중국 공장 협의, OEM, 품질 검수, 물류 선적까지 무역대행 전 과정을 원스톱으로 제공합니다.', href: '/document/trade', category: '무역업무' },
+  { id: 'market-fee', title: '시장조사', description: '요청 제품에 대한 주문 가능 수량, OEM 여부, 생산 스케줄을 여러 공장에서 소싱해 1~2일 내 정보를 제공합니다.', href: '/document/market-fee', category: '시장조사' },
+  { id: 'oem', title: 'OEM / ODM', description: '제품 각인, 로고 인쇄, 포장 등 공정을 자체 공장에서 OEM/ODM으로 진행합니다. 금형·사출 성형까지 한 곳에서.', href: '/document/oem', category: 'OEM·ODM' },
+  { id: 'denote-fee', title: '원산지 표기 요금', description: '원산지 표기 관련 요금 및 서비스 안내입니다.', href: '/document/denote-fee', category: '요금 안내' },
+  { id: 'inventory', title: '재고관리', description: '중국 배송센터에 재고를 보관하고 편리하게 관리할 수 있는 셀러 맞춤 창고보관 서비스입니다.', href: '/document/inventory', category: '재고관리' },
+];
+
+/** 탑바 전부 상단 직접 링크 (드롭다운 없음). 메인은 슈닝 로고 클릭. */
+export const TOP_NAV_LINKS: { id: string; label: string; href: string }[] = [
+  { id: 'trade', label: '무역업무', href: '/document/trade' },
+  { id: 'market-fee', label: '시장조사', href: '/document/market-fee' },
+  { id: 'oem', label: 'OEM/ODM', href: '/document/oem' },
+  { id: 'inventory', label: '재고관리', href: '/document/inventory' },
+  { id: 'denote-fee', label: '요금 안내', href: '/document/denote-fee' },
+];
+
+export const TESTIMONIALS: Testimonial[] = [
+  { id: 't1', quote: '물류비 절감과 빠른 배송, 둘 다 해결해 주셔서 정말 만족스럽습니다. 슈닝 덕분에 이커머스 운영이 한결 수월해졌어요.', authorLabel: '이커머스 셀러', authorRole: '패션' },
+  { id: 't2', quote: '1688 구매대행부터 재고관리까지 한 곳에서 처리할 수 있어 시간과 비용을 많이 아꼈습니다. 상담 응대도 빠르고 친절합니다.', authorLabel: '소규모 수입사', authorRole: '생활용품' },
+  { id: 't3', quote: '이우 시장 소싱과 OEM까지 맡기고 믿고 기다리기만 하면 됐어요. 다음에도 슈닝과 함께할 예정입니다.', authorLabel: '스타트업 담당자', authorRole: '제조' },
 ];

@@ -18,30 +18,24 @@ const Hero: React.FC = () => {
         
         <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm shadow-lg">
           <p className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-white/90">
-            Global Trade Partner, Suning
+            도매 전과정 해결
           </p>
         </div>
         
-        <div className="relative mb-8">
-          {/* Background Stroke Text for Depth */}
-          <h1 className="absolute top-0 left-1/2 -translate-x-1/2 w-full text-[18vw] md:text-[20vw] leading-none font-black tracking-tighter stroke-text opacity-30 blur-sm select-none pointer-events-none">
-            2025
-          </h1>
-          {/* Main Text */}
-          <h1 className="relative text-[18vw] md:text-[20vw] leading-none font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/70 drop-shadow-2xl z-10">
-            2025
-          </h1>
-        </div>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight text-white drop-shadow-2xl mb-6 text-center word-keep-all">
+          도매부터 재고까지,<br/>
+          한 곳에서.
+        </h1>
 
-        <h2 className="text-3xl md:text-6xl font-light italic leading-tight text-white/90 mb-10 tracking-tight">
-          Year in <span className="font-bold text-white">Review</span>
+        <h2 className="text-2xl md:text-4xl font-light leading-tight text-white/90 mb-8 tracking-tight">
+          효율적인 소싱과 물류, <span className="font-bold text-white">슈닝</span>이 함께합니다.
         </h2>
 
         <div className="max-w-xl mx-auto text-lg md:text-xl font-medium leading-relaxed text-blue-50/90 word-keep-all text-center">
           <p>
-            <span className="text-white font-bold">슈닝(Suning)</span>은 멈추지 않았습니다.<br/>
-            이우 센터 확장부터 1688 시스템 연동까지,<br/>
-            여러분의 비즈니스 성장을 위한 여정을 기록합니다.
+            <span className="text-white font-bold">슈닝(Suning)</span>은 중국 구매대행·배송대행·재고관리를<br/>
+            원스톱으로 제공합니다.<br/>
+            지금 상담받고 견적을 확인해 보세요.
           </p>
         </div>
       </div>

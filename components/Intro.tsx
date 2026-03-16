@@ -12,22 +12,22 @@ const Intro: React.FC = () => {
           <div className="inline-flex items-center gap-2 mb-6">
             <span className="w-8 h-[2px] bg-suning-blue"></span>
             <h3 className="text-sm font-bold uppercase tracking-widest text-suning-blue">
-              2025 Highlights
+              Why Suning
             </h3>
           </div>
           
           <p className="text-4xl md:text-6xl font-medium leading-[1.2] word-keep-all tracking-tight text-slate-900">
-            2025년, 우리는 단순한 화물 운송을 넘어<br className="hidden md:block"/>
+            슈닝이 해결하는 일<br className="hidden md:block"/>
             <span className="text-gradient font-bold relative inline-block">
-               기대 그 이상의 가치
+               도매·소싱·물류
                <svg className="absolute -bottom-2 left-0 w-full h-3 text-suning-blue opacity-30" viewBox="0 0 100 10" preserveAspectRatio="none">
                  <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
                </svg>
-            </span>를 전달했습니다.
+            </span>를 한 곳에서.
           </p>
           <p className="mt-8 text-xl text-gray-500 max-w-2xl leading-relaxed word-keep-all md:ml-auto">
-            급변하는 국제 정세 속에서도 슈닝은 흔들리지 않는 연결을 지속하며,
-            고객님의 비즈니스 파트너로서 함께 성장했습니다.
+            이커머스 셀러와 사업자를 위한 중국 구매대행, 시장조사, OEM, 재고관리까지
+            슈닝이 원스톱으로 책임집니다.
           </p>
         </div>
       </div>
@@ -37,7 +37,7 @@ const Intro: React.FC = () => {
         <div className="absolute inset-0 bg-suning-navy opacity-90"></div>
         
         <div className="flex whitespace-nowrap animate-marquee relative z-10 items-center">
-          {['Global Trade', '물류 혁신', 'Supply Chain', '슈닝 2025', '수출', '수입', 'Fast Delivery', 'Global Trade', '물류 혁신', 'Supply Chain', '슈닝 2025', '수출', '수입', 'Fast Delivery'].map((item, idx) => (
+          {['도매', '소싱', 'Supply Chain', '재고관리', '구매대행', '배송대행', 'Fast Delivery', '도매', '소싱', 'Supply Chain', '재고관리', '구매대행', '배송대행', 'Fast Delivery'].map((item, idx) => (
              <React.Fragment key={idx}>
                <span className="mx-8 text-5xl md:text-8xl font-black uppercase tracking-tighter text-transparent stroke-text hover:text-white transition-colors duration-300 cursor-default">
                  {item}

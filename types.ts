@@ -26,3 +26,18 @@ export interface TeamMember {
   role: string;
   image: string;
 }
+
+export interface Service {
+  id: string;
+  title: string;
+  description: string;
+  href: string;
+  category: string;
+}
+
+export interface Testimonial {
+  id: string;
+  quote: string;
+  authorLabel?: string;
+  authorRole?: string;
+}
