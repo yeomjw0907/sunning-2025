@@ -30,11 +30,11 @@ export default function Landing() {
   return (
     <>
       <Hero />
+      <Testimonials />
       <Intro />
       <Services />
       <Projects />
       <Stats />
-      <Testimonials />
       <Culture />
       <Footer />
     </>

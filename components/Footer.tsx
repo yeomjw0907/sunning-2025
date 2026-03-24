@@ -1,9 +1,8 @@
 import React from 'react';
+import { trackEvent } from '../lib/analytics';
 
 const trackCtaClick = (ctaType: 'kakao' | 'quote' | 'phone' | 'start') => {
-  if (typeof window !== 'undefined' && typeof (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag === 'function') {
-    (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'click_cta', { cta_type: ctaType });
-  }
+  void trackEvent('click_cta', { cta_type: ctaType });
 };
 
 const Footer: React.FC = () => {

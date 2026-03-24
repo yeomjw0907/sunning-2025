@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SERVICES } from '../constants';
+import { trackEvent } from '../lib/analytics';
 
 const trackSectionClick = (sectionName: string) => {
-  if (typeof window !== 'undefined' && typeof (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag === 'function') {
-    (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'click_service_section', { section_name: sectionName });
-  }
+  void trackEvent('click_service_section', { section_name: sectionName });
 };
 
 const Services: React.FC = () => {

@@ -1,6 +1,15 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DOCUMENT_PAGES } from '../data/documentContent';
+import { trackEvent } from '../lib/analytics';
+
+const trackDocumentCtaClick = (ctaType: 'phone' | 'kakao' | 'home', pageSlug: string | undefined, pageTitle: string | undefined) => {
+  void trackEvent('click_document_cta', {
+    cta_type: ctaType,
+    page_slug: pageSlug ?? '(unknown)',
+    page_title: pageTitle ?? '(unknown)',
+  });
+};
 
 export default function DocumentPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -122,6 +131,7 @@ export default function DocumentPage() {
               <a
                 href="tel:070-7078-9880"
                 className="inline-flex items-center justify-center gap-2 bg-suning-orange text-white font-bold py-3.5 px-8 rounded-full hover:bg-orange-600 transition-colors shadow-md hover:shadow-lg w-full sm:w-auto"
+                onClick={() => trackDocumentCtaClick('phone', slug, doc.title)}
               >
                 문의하기 070-7078-9880
               </a>
@@ -130,12 +140,14 @@ export default function DocumentPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 border-2 border-slate-200 text-slate-700 font-bold py-3.5 px-8 rounded-full hover:border-suning-blue hover:text-suning-blue transition-colors w-full sm:w-auto"
+                onClick={() => trackDocumentCtaClick('kakao', slug, doc.title)}
               >
                 카톡상담
               </a>
               <Link
                 to="/"
                 className="inline-flex items-center justify-center gap-2 border-2 border-slate-200 text-slate-700 font-bold py-3.5 px-8 rounded-full hover:border-suning-blue hover:text-suning-blue transition-colors w-full sm:w-auto"
+                onClick={() => trackDocumentCtaClick('home', slug, doc.title)}
               >
                 슈닝 바로가기
               </Link>
