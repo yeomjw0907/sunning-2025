@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { TOP_NAV_LINKS } from '../constants';
 import { DOCUMENT_PAGES } from '../data/documentContent';
@@ -18,26 +18,26 @@ const trackLogoClick = () => {
 };
 
 const Topbar: React.FC = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const currentDoc = slug && DOCUMENT_PAGES[slug] ? DOCUMENT_PAGES[slug] : null;
   if (pathname.startsWith('/admin')) return null;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-30 bg-white/95 backdrop-blur border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+    <>
+      <header className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-b border-slate-100 shadow-sm">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         <Link
           to="/"
           className="flex items-center shrink-0 opacity-95 hover:opacity-100 transition-opacity"
           aria-label="슈닝 메인으로"
           onClick={trackLogoClick}
         >
-          <img src="/logo.png" alt="슈닝" className="h-8 sm:h-9 w-auto object-contain" />
+          <img src="/logo.png" alt="슈닝" className="h-7 sm:h-9 w-auto object-contain" />
         </Link>
 
-        {/* Desktop: 전부 상단 직접 링크 (드롭다운 없음). 메인은 슈닝 클릭으로. */}
-        <nav className="hidden md:flex items-center gap-5">
+        {/* Desktop: 중앙 메뉴 */}
+        <nav className="hidden md:flex items-center justify-center gap-6 md:absolute md:left-1/2 md:-translate-x-1/2">
           {TOP_NAV_LINKS.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -51,83 +51,73 @@ const Topbar: React.FC = () => {
               </Link>
             );
           })}
-          {currentDoc && (
-            <span className="text-slate-500 font-medium max-w-[160px] truncate text-sm" title={currentDoc.title}>
-              {currentDoc.title}
-            </span>
-          )}
-          <a
-            href="https://suning.kr/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium py-2 text-slate-700 hover:text-suning-blue transition-colors"
-            onClick={() => {
-              void trackEvent('click_topbar_shortcut', {
-                destination: 'https://suning.kr/',
-              });
-            }}
-          >
-            슈닝 바로가기
-          </a>
         </nav>
 
-        {/* Mobile: 햄버거 메뉴 */}
-        <div className="md:hidden flex items-center">
-          <button
-            type="button"
-            onClick={() => setMenuOpen((v) => !v)}
-            className="p-2 text-slate-700 hover:text-suning-blue"
-            aria-label="메뉴"
-          >
-            {menuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
+        {/* Desktop: 우측 공식 홈페이지 바로가기 */}
+        <a
+          href="https://suning.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-suning-blue hover:text-suning-blue transition-colors"
+          onClick={() => {
+            void trackEvent('click_topbar_shortcut', {
+              destination: 'https://suning.kr/',
+            });
+          }}
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M14 3h7v7" />
+            <path d="M10 14L21 3" />
+            <path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6" />
+          </svg>
+          슈닝 공식 홈페이지
+        </a>
 
-      {/* Mobile 메뉴 패널: 슈닝 클릭이 메인이므로 메인 링크 없음 */}
-      {menuOpen && (
-        <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4">
+        {/* Mobile: 우측 공식 홈페이지 버튼 */}
+        <a
+          href="https://suning.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="md:hidden inline-flex items-center gap-1 rounded-full border border-slate-200 px-2.5 py-1.5 text-[10px] font-semibold text-slate-700 hover:border-suning-blue hover:text-suning-blue transition-colors whitespace-nowrap shrink-0"
+          onClick={() => {
+            void trackEvent('click_topbar_shortcut', {
+              destination: 'https://suning.kr/',
+            });
+          }}
+        >
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M14 3h7v7" />
+            <path d="M10 14L21 3" />
+            <path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6" />
+          </svg>
+          슈닝 공식 홈페이지
+        </a>
+        </div>
+      </header>
+
+      {/* Mobile 상단(Topbar 바로 아래) 고정 메뉴 */}
+      <div className="md:hidden fixed top-16 left-0 right-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur px-2">
+        <nav className="grid grid-cols-5 gap-1 py-2">
           {TOP_NAV_LINKS.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.id}
                 to={item.href}
-                className={`block py-3 font-medium transition-colors ${isActive ? 'text-suning-blue' : 'text-slate-700 hover:text-suning-blue'}`}
+                className={`text-center text-[11px] leading-tight font-semibold px-1 py-1.5 rounded-lg transition-colors ${
+                  isActive ? 'text-suning-blue bg-suning-blue/10' : 'text-slate-600 hover:text-suning-blue'
+                }`}
                 onClick={() => {
                   trackTopnavClick(item.id, item.label);
-                  setMenuOpen(false);
                 }}
               >
                 {item.label}
               </Link>
             );
           })}
-          <a
-            href="https://suning.kr/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block py-3 font-medium transition-colors text-slate-700 hover:text-suning-blue"
-            onClick={() => {
-              void trackEvent('click_topbar_shortcut', {
-                destination: 'https://suning.kr/',
-              });
-              setMenuOpen(false);
-            }}
-          >
-            슈닝 바로가기
-          </a>
-        </div>
-      )}
-    </header>
+        </nav>
+      </div>
+    </>
   );
 };
 
