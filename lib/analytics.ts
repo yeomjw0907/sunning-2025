@@ -42,11 +42,23 @@ const getTrafficMeta = () => {
   }
 
   const search = new URLSearchParams(window.location.search);
+  const utmSource = search.get('utm_source') ?? '';
+  const utmMedium = search.get('utm_medium') ?? '';
+  const utmCampaign = search.get('utm_campaign') ?? '';
+
+  // `document.referrer`는 브라우저 정책/링크 방식에 따라 비어있을 수 있어,
+  // UTM이 있으면 "유입 경로"를 대신해서 기록한다.
+  const utmFallbackReferrer = [utmSource, utmMedium, utmCampaign]
+    .filter((v) => Boolean(v))
+    .join(' / ');
+
+  const referrer = document.referrer || utmFallbackReferrer;
+
   return {
-    referrer: document.referrer || '',
-    utm_source: search.get('utm_source') ?? '',
-    utm_medium: search.get('utm_medium') ?? '',
-    utm_campaign: search.get('utm_campaign') ?? '',
+    referrer,
+    utm_source: utmSource,
+    utm_medium: utmMedium,
+    utm_campaign: utmCampaign,
   };
 };
 
