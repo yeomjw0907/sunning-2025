@@ -3,8 +3,5 @@
   "targetUrl": "https://yldmzjifjwvuwcrxyuwh.supabase.co",
   "targetKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsZG16amlmand2dXdjcnh5dXdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxMjg1ODMsImV4cCI6MjEwOTcwNDU4M30.s2WIWO5lNyoO78SEAET63wjqzKkJ8muWGIOzhC180NE",
   "targetSchema": "sunning_live",
-  "sourceUrl": "https://atzzcgzbsdwtgjruyzsv.supabase.co",
-  "sourceKey": "sb_publishable_CNZH5a4fZFapNlIHh4-lVA_F7NK8nFo",
-  "sourceSchema": "public",
-  "sourceRef": "atzzcgzbsdwtgjruyzsv"
+  "aliasNamespace": "atzzcgzbsdwtgjruyzsv"
 }
