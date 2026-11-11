@@ -1,9 +1,10 @@
+import type {ReactElement} from 'react';
 import { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { supabase } from '../../lib/supabaseClient';
 
 interface Props {
-  children: JSX.Element;
+  children: ReactElement;
 }
 
 export default function RequireAdmin({ children }: Props) {

@@ -1,0 +1,1 @@
+import {submitEvent} from '../server/runtime.mjs';export default submitEvent;
