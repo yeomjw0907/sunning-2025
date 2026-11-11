@@ -8,6 +8,32 @@ import Testimonials from '../components/Testimonials';
 import Culture from '../components/Culture';
 import Footer from '../components/Footer';
 
+const homepageUrl = 'https://sunning-2025.vercel.app/';
+const organizationId = homepageUrl + '#organization';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': homepageUrl + '#website',
+      url: homepageUrl,
+      name: '슈닝(Suning)',
+      alternateName: '슈닝',
+      inLanguage: 'ko',
+      publisher: { '@id': organizationId },
+    },
+    {
+      '@type': 'Organization',
+      '@id': organizationId,
+      name: '슈닝 Suning',
+      url: 'https://suning.kr/',
+      logo: homepageUrl + 'logo.png',
+      description: '중국 구매대행, 배송대행, 재고관리 서비스',
+    },
+  ],
+};
+
 export default function Landing() {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -29,6 +55,7 @@ export default function Landing() {
 
   return (
     <>
+      <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       <Hero />
       <Testimonials />
       <Intro />
