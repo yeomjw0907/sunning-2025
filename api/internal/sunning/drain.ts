@@ -1,0 +1,1 @@
+import {worker} from '../../../server/runtime.mjs';export const config={maxDuration:300};export default worker;

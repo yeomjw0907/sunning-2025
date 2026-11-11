@@ -1,4 +1,4 @@
-import { supabase } from './supabaseClient';
+import { supabase,recordEvent } from './supabaseClient';
 
 export type AnalyticsEventName =
   | 'page_view'
@@ -81,7 +81,7 @@ export const trackEvent = async (eventName: AnalyticsEventName, payload: TrackEv
   const { meta, ...rest } = payload;
   const trafficMeta = getTrafficMeta();
 
-  void supabase.from('event_logs').insert({
+  await recordEvent({
     event_name: eventName,
     page_path: pagePath,
     page_slug: payload.page_slug ?? '',

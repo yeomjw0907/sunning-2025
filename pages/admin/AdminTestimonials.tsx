@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase,removeSunningFile } from '../../lib/supabaseClient';
 
 interface TestimonialItem {
   id: string;
@@ -97,7 +97,7 @@ export default function AdminTestimonials() {
     if (!supabase) return;
     await supabase.from('testimonials').delete().eq('id', item.id);
     const storagePath = extractStoragePath(item.image_url, 'testimonials');
-    if (storagePath) await supabase.storage.from('testimonials').remove([storagePath]);
+    await removeSunningFile(item.image_url,'testimonials');
     await load();
   };
 
@@ -183,12 +183,12 @@ export default function AdminTestimonials() {
           <div
             key={item.id}
             draggable
-            onDragStart={() => setDraggedId(item.id)}
+            onDragStart={(e) => {e.dataTransfer.setData('text/plain',item.id);setDraggedId(item.id);}}
             onDragOver={(e) => {
               e.preventDefault();
             }}
-            onDrop={() => {
-              if (draggedId) moveItem(draggedId, item.id);
+            onDrop={(e) => { e.preventDefault();
+              const from=e.dataTransfer.getData('text/plain')||draggedId;if(from)moveItem(from,item.id);
               setDraggedId(null);
             }}
             onDragEnd={() => setDraggedId(null)}
@@ -196,7 +196,7 @@ export default function AdminTestimonials() {
               draggedId === item.id ? 'border-suning-blue' : 'border-slate-200'
             }`}
           >
-            <img src={item.image_url} alt={item.source || '후기 이미지'} className="w-full aspect-[4/3] object-cover" />
+            <img draggable={false} src={item.image_url} alt={item.source || '후기 이미지'} className="w-full aspect-[4/3] object-cover" />
             <div className="p-4 space-y-2">
               <p className="text-sm text-slate-500">순서: {index + 1}</p>
               {item.quote && <p className="text-sm text-slate-700 leading-relaxed">{item.quote}</p>}

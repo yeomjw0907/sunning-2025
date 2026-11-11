@@ -1,17 +1,11 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://atzzcgzbsdwtgjruyzsv.supabase.co';
-const supabaseAnonKey =
-  import.meta.env.VITE_SUPABASE_ANON_KEY ||
-  'sb_publishable_CNZH5a4fZFapNlIHh4-lVA_F7NK8nFo';
-
-export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
-
-export const supabase = isSupabaseConfigured
-  ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-      },
-    })
-  : null;
+import {createClient,type SupabaseClient} from '@supabase/supabase-js';import b from './sunning-bindings.json';
+export let supabase:SupabaseClient<any,any,any>|null=null;export const isSupabaseConfigured=true;let backend='',revision='';
+async function version(){const r=await fetch(b.targetUrl+'/rest/v1/rpc/ops_version',{method:'POST',headers:{apikey:b.targetKey,Authorization:'Bearer '+b.targetKey,'Content-Type':'application/json','Content-Profile':b.targetSchema},body:'{}',cache:'no-store',redirect:'error',signal:AbortSignal.timeout(4000)});if(!r.ok)throw Error('관리 연결을 확인할 수 없습니다. 잠시 후 새로고침해주세요.');return r.json();}
+export async function initialize(){const state=await version();backend=state.backend;revision=state.revision||backend;const target=backend==='target',url=target?b.targetUrl:b.sourceUrl,key=target?b.targetKey:b.sourceKey,schema=target?b.targetSchema:b.sourceSchema;
+ const safeFetch:typeof fetch=async(input,init)=>{const u=new URL(typeof input==='string'?input:input instanceof URL?input.href:input.url);if(u.origin!==new URL(url).origin)throw Error('Unexpected site data endpoint');if(b.stage==='synthetic'&&/^\/auth\/v1\/(signup|recover|otp|invite|resend|magiclink)/.test(u.pathname))throw Error('Synthetic mail disabled');if(target&&u.pathname==='/auth/v1/token'&&u.searchParams.get('grant_type')==='password')return fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:init?.body,redirect:'error'});return fetch(input,{...init,redirect:'error'});};
+ const storageKey=target?'sb-sunning-live-auth-token':b.stage==='production'?'sb-atzzcgzbsdwtgjruyzsv-auth-token':'sb-sunning-test-source-auth-token';try{const prior=localStorage.getItem('sunning-runtime-revision');if(prior&&prior!==revision)localStorage.removeItem(storageKey);localStorage.setItem('sunning-runtime-revision',revision);}catch{/* browser storage unavailable */}supabase=createClient(url,key,{db:{schema},auth:{storageKey,persistSession:true,autoRefreshToken:true},global:{fetch:safeFetch}});
+ const from=supabase.storage.from.bind(supabase.storage);supabase.storage.from=(bucket:string)=>{if(!['testimonials','popups'].includes(bucket))throw Error('Unknown site bucket');return from(schema==='public'?bucket:schema+'-'+bucket);};
+ const check=async()=>{try{const next=await version();if(next.phase==='active'&&(next.revision||next.backend)!==revision){const dirty=[...document.querySelectorAll('input,textarea')].some(e=>{const v=e as HTMLInputElement;return v.type==='file'?Boolean(v.files?.length):v.value!==v.defaultValue;});if(!dirty)location.reload();else if(!document.getElementById('sunning-transition')){const notice=document.createElement('div');notice.id='sunning-transition';notice.textContent='관리 연결이 갱신되었습니다. 입력 내용을 보관한 뒤 새로고침해주세요.';Object.assign(notice.style,{position:'fixed',top:'0',left:'0',right:'0',zIndex:'99999',padding:'16px',background:'#fff3cd',color:'#222'});document.body.append(notice);}}}catch{/* retain current page on a temporary network error */}};setInterval(check,30000);addEventListener('focus',check);
+}
+export async function recordEvent(event:Record<string,unknown>){const id=crypto.randomUUID();const r=await fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request_id:id,event}),redirect:'error'});if(!r.ok)console.warn('통계 저장을 재시도할 수 없습니다.');}
+export async function removeSunningFile(publicUrl:string,bucket:string){if(!supabase||!['testimonials','popups'].includes(bucket))throw Error('관리 연결을 확인해주세요.');const u=new URL(publicUrl),allowed=[new URL(b.sourceUrl).origin,new URL(b.targetUrl).origin];if(!allowed.includes(u.origin))return;const prefixes=['/storage/v1/object/public/'+bucket+'/',...['sunning_live','sj_test_sunning_source','sj_test_sunning_target'].map(s=>'/storage/v1/object/public/'+s+'-'+bucket+'/')];const prefix=prefixes.find(p=>u.pathname.startsWith(p));if(!prefix)return;const key=u.pathname.slice(prefix.length).split('/').map(decodeURIComponent).join('/');const result=await supabase.storage.from(bucket).remove([key]);const {data:{session}}=await supabase.auth.getSession();if(session){try{await fetch('/api/files/cleanup',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.access_token},body:'{}',redirect:'error'});}catch{/* native deletion already queued durable cleanup */}}if(result.error)console.warn('Sunning file cleanup queued');}

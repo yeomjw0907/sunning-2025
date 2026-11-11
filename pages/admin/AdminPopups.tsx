@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase,removeSunningFile } from '../../lib/supabaseClient';
 
 interface PopupItem {
   id: string;
@@ -101,7 +101,7 @@ export default function AdminPopups() {
     await supabase.from('popups').delete().eq('id', item.id);
     if (item.image_url) {
       const storagePath = extractStoragePath(item.image_url, 'popups');
-      if (storagePath) await supabase.storage.from('popups').remove([storagePath]);
+      await removeSunningFile(item.image_url,'popups');
     }
     await load();
   };

@@ -1,3 +1,5 @@
+import bindings from './lib/sunning-bindings.json';
+if(bindings.stage==='production'&&process.env.VERCEL_ENV&&process.env.VERCEL_ENV!=='production')throw Error('Production database bindings cannot run as preview');
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';

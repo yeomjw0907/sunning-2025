@@ -1,15 +1,1 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-
-const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
-}
-
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import React from 'react';import ReactDOM from 'react-dom/client';import {initialize} from './lib/supabaseClient';const root=document.getElementById('root');if(!root)throw Error('Root missing');initialize().catch(()=>{}).then(()=>import('./App')).then(({default:App})=>ReactDOM.createRoot(root).render(<React.StrictMode><App/></React.StrictMode>)).catch(()=>{root.textContent='연결을 확인하는 중입니다. 잠시 후 새로고침해주세요.';});
