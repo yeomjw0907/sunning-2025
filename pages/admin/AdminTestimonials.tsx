@@ -56,7 +56,8 @@ export default function AdminTestimonials() {
 
     for (let i = 0; i < files.length; i += 1) {
       const file = files[i];
-      const path = `${Date.now()}-${i}-${file.name}`;
+      const extension = file.name.match(/\.[a-z0-9]{1,16}$/i)?.[0].toLowerCase() ?? '';
+      const path = `${crypto.randomUUID()}${extension}`;
       const uploadRes = await supabase.storage.from('testimonials').upload(path, file, { upsert: false });
       if (uploadRes.error) {
         setLoading(false);
