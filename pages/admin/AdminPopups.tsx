@@ -53,7 +53,8 @@ export default function AdminPopups() {
 
     let imageUrl: string | null = null;
     if (file) {
-      const path = `${Date.now()}-${file.name}`;
+      const extension = file.name.match(/\.[a-z0-9]{1,16}$/i)?.[0].toLowerCase() ?? '';
+      const path = `${crypto.randomUUID()}${extension}`;
       const uploadRes = await supabase.storage.from('popups').upload(path, file);
       if (uploadRes.error) {
         setLoading(false);
